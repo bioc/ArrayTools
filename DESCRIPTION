@@ -1,0 +1,27 @@
+Package: ArrayTools
+Type: Package
+Title: geneChip Analysis Package
+Version: 1.0.0
+Date: 2008-08-19
+Author: Xiwei Wu, Arthur Li
+Depends: R (>= 2.7.0), methods, affy, limma, xtable
+Suggests: simpleaffy, R2HTML, affyPLM, genefilter, annaffy, gcrma
+Collate: Generic.R designMatrix-class.R contrastMatrix-class.R
+    regressResult-class.R interactionResult-class.R
+	preProcess3prime.R preProcessGeneST.R createExpressionSet.R
+	regress.R selectSigGene.R postInteraction.R selectSigGeneInt.R
+    createGSEAFiles.R createIndex.R createIngenuityFile.R
+    geneFilter.R intensityPlot.R output.cls.R output.gct.R
+    output.ing.R plotCluster.R qa3prime.R qaGeneST.R
+Maintainer: Arthur Li <xueli@coh.org>
+Description: This package is designed to provide solutions 
+    for quality assessment and to detect differentially expressed genes for the 
+    Affymetrix GeneChips, including both 3' -arrays and gene 1.0-ST arrays. 
+    The package generates comprehensive analysis reports in HTML format. Hyperlinks on 
+    the report page will lead to a series of QC plots, processed data, and differentially 
+    expressed gene lists. Differentially expressed genes are reported in tabular format with 
+    annotations hyperlinked to online biological databases. 
+biocViews: Microarray, OneChannel, QualityControl, Preprocessing,
+  Statistics, DifferentialExpression, Annotation, ReportWriting, Visualization
+License: LGPL(>= 2.0)
+LazyLoad: yes

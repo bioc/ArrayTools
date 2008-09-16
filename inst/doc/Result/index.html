@@ -1,0 +1,58 @@
+
+ <h2 > <p align=left><font size='6', face='Verdana'>Analysis Report</p></h2><p class='character'><hr /> <p align=left><font size='5', face='Verdana'> Sample</p><p class='character'><ul></p>
+<p align= left >
+<table cellspacing=0 border=1>
+<caption align=bottom class=captiondataframe></caption>
+<tr><td>
+	<table border=2 class=dataframe>
+	<tbody> 
+	<tr class= firstline > 
+		<th>&nbsp;  </th>
+		<th>Treatment  </th>
+		<th>Group</th> 
+	</tr> <tr> <td class=firstcolumn>H1.CEL</td><td class=cellinside>Treated</td><td class=cellinside>A</td></tr>
+ <tr> <td class=firstcolumn>H2.CEL</td><td class=cellinside>Treated</td><td class=cellinside>A</td></tr>
+ <tr> <td class=firstcolumn>H3.CEL</td><td class=cellinside>Treated</td><td class=cellinside>A</td></tr>
+ <tr> <td class=firstcolumn>H4.CEL</td><td class=cellinside>Treated</td><td class=cellinside>A</td></tr>
+ <tr> <td class=firstcolumn>H5.CEL</td><td class=cellinside>Treated</td><td class=cellinside>B</td></tr>
+ <tr> <td class=firstcolumn>H6.CEL</td><td class=cellinside>Treated</td><td class=cellinside>B</td></tr>
+ <tr> <td class=firstcolumn>H7.CEL</td><td class=cellinside>Treated</td><td class=cellinside>B</td></tr>
+ <tr> <td class=firstcolumn>H8.CEL</td><td class=cellinside>Treated</td><td class=cellinside>B</td></tr>
+ <tr> <td class=firstcolumn>H9.CEL</td><td class=cellinside>Control</td><td class=cellinside>A</td></tr>
+ <tr> <td class=firstcolumn>H10.CEL</td><td class=cellinside>Control</td><td class=cellinside>A</td></tr>
+ <tr> <td class=firstcolumn>H11.CEL</td><td class=cellinside>Control</td><td class=cellinside>A</td></tr>
+ <tr> <td class=firstcolumn>H12.CEL</td><td class=cellinside>Control</td><td class=cellinside>A</td></tr>
+ <tr> <td class=firstcolumn>H13.CEL</td><td class=cellinside>Control</td><td class=cellinside>B</td></tr>
+ <tr> <td class=firstcolumn>H14.CEL</td><td class=cellinside>Control</td><td class=cellinside>B</td></tr>
+ <tr> <td class=firstcolumn>H15.CEL</td><td class=cellinside>Control</td><td class=cellinside>B</td></tr>
+ <tr> <td class=firstcolumn>H16.CEL</td><td class=cellinside>Control</td><td class=cellinside>B</td></tr>
+ 
+	</tbody>
+</table>
+ </td></table>
+ <br>
+<p class='character'></ul></p><p class='character'><hr /> <p align=left><font size='5', face='Arial'> Data Preprocessing</p><p class='character'><ul></p><p class='character'><p align=left><li><font size='3', face='Arial'> All data processing was done 
+                using Bioconductor or APT tools</p><p class='character'><p align=left><li><font size='3', face='Arial'> The offset of 1 was added to the origianl value before taking the log2</p><p class='character'><p align=left><li><font size='3', face='Arial'> 'normgene' and 'control'
+                    genes were removed</p><p class='character'><p align=left><li><font size='3', face='Arial'> Endpoint: data matrix of 876 genes X 16 samples</p><p class='character'><p align=left><li><font size='3', face='Arial'> <a href=Normalized_Data\normaldata.csv> 
+           Download Processed Data </a></p><p class='character'></ul></p><p class='character'><hr /> <p align=left><font size='5', face='Arial'> Quality Assessment</p><p class='character'><ul></p><p class='character'><p align=left> <font size='3'> <a href=Quality_Control_Assessment\QA.html> Quality Assessment 
+                Report </a> includes the following figures: Intensity Distribution, Mean Signal, BAC Spike, 
+                polya Spike, Pos Vs Neg Auc, Mad Residual Signal, RLE MEAN, and Hierarchical Clustering of Samples
+                plots</p><p class='character'></ul></p><p class='character'><hr /> <p align=left><font size='5', face='Arial'> Filtering</p><p class='character'><ul></p><p class='character'><p align=left><li><font size='3', face='Arial'> Probes with log2 intensity < 4 in more than 14 arrays are considered uninformative 
+                and removed</p><p class='character'><p align=left><li><font size='3', face='Arial'> Probes with IQR < 10 % are considered uninformative and removed</p><p class='character'><p align=left><li><font size='3', face='Arial'> After filtering: 763 probesets are left</p><p class='character'><p align=left><li><font size='3', face='Arial'> <a href=Filtered_Data\filterData.csv> 
+           Download Filtered Data </a></p><p class='character'></ul></p><p class='character'><hr /> <p align=left><font size='5', face='Arial'> Identification of Differentially 
+            Expressed Genes</p><p class='character'><ul></p><!-- html table generated in R 2.8.0 by xtable 1.5-3 package -->
+<!-- Tue Sep 16 15:43:51 2008 -->
+<TABLE border=1>
+<TR> <TH> mainEffect </TH> <TH> Comparison </TH> <TH> Adjusting </TH> <TH> Ratio </TH> <TH> P </TH> <TH> MultCompAdjtmt </TH> <TH> StatMethod </TH> <TH> Results </TH>  </TR>
+  <TR> <TD> Treatment </TD> <TD> Treated vs. Control </TD> <TD> none </TD> <TD> log2(1.5) </TD> <TD align="right"> 0.05 </TD> <TD> none </TD> <TD> limma </TD> <TD> <a href=Differentially_Expressed_Genes\Treatment-Treated.VS.Control.html> 24 genes</a> </TD> </TR>
+  <TR> <TD> Treatment </TD> <TD> Treated vs. Control </TD> <TD> Group </TD> <TD> log2(1.5) </TD> <TD align="right"> 0.05 </TD> <TD> none </TD> <TD> limma </TD> <TD> <a href=Differentially_Expressed_Genes\Treatment-Treated.VS.Control-ADJ-Group.html> 25 genes</a> </TD> </TR>
+   </TABLE>
+<p class='character'></ul></p><p class='character'><ul></p><p class='character'><p align=left><font size='3'> <a href=Differentially_Expressed_Genes\Treatment-X-Group.html>Treatment-X-Group</a></p><!-- html table generated in R 2.8.0 by xtable 1.5-3 package -->
+<!-- Tue Sep 16 15:43:51 2008 -->
+<TABLE border=1>
+<TR> <TH> Comparison </TH> <TH> Levels </TH> <TH> Ratio </TH> <TH> P </TH> <TH> MultCompAdjtmt </TH> <TH> StatMethod </TH> <TH> Results </TH>  </TR>
+  <TR> <TD> Treatment X Group </TD> <TD> none </TD> <TD> log2(1.5) </TD> <TD align="right"> 0.05 </TD> <TD> none </TD> <TD> limma </TD> <TD align="right">  42 </TD> </TR>
+  <TR> <TD> Treated vs. Control </TD> <TD> A </TD> <TD> log2(1.5) </TD> <TD align="right"> 0.05 </TD> <TD> none </TD> <TD> limma </TD> <TD align="right">   0 </TD> </TR>
+  <TR> <TD> Treated vs. Control </TD> <TD> B </TD> <TD> log2(1.5) </TD> <TD align="right"> 0.05 </TD> <TD> none </TD> <TD> limma </TD> <TD align="right">   0 </TD> </TR>
+   </TABLE>
+<p class='character'></ul></p>

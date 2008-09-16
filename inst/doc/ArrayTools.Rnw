@@ -1,0 +1,275 @@
+
+%\VignetteIndexEntry{1. Primer}
+%
+% NOTE -- ONLY EDIT THE .Rnw FILE!!!  The .tex file is
+% likely to be overwritten.
+%
+\documentclass[11pt]{article}
+\usepackage{amsmath,pstricks}
+\usepackage{amssymb}
+\usepackage{epsfig}
+\usepackage{lscape}
+\usepackage{graphics}
+\usepackage{Sweave}
+\textwidth=5.4in 
+\textheight=8.8in
+%\parskip=.3cm
+\oddsidemargin=.1in 
+\evensidemargin=.1in 
+\headheight=-.5in
+\setcounter{tocdepth}{2} 
+\setcounter{secnumdepth}{3}
+\begin{document}
+\title{ArrayTools: Array Quality Assessment and Analysis Tool}
+\author{Xiwei Wu and Xuejun Arthur Li}
+\maketitle
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+The Affymetrix GeneChip is a commonly used tool to study gene expression profiles. 
+The newly introduced Gene 1.0-ST arrays measure transcript expressions more accurately 
+than the regular 3' -arrays. However, it lacks a tool to provide quality assessment 
+and analysis for this type of array. This package is designed to provide solutions 
+for quality assessment and to detect differentially expressed genes for the Affymetrix 
+GeneChips, including both 3' -arrays and gene 1.0-ST arrays. The package provides 
+functions that are easy to follow by biologists who have limited statistical backgrounds. 
+The package generates comprehensive analysis reports in HTML format. Hyperlinks on 
+the report page will lead to a series of QC plots, processed data, and differentially 
+expressed gene lists. Differentially expressed genes are reported in tabular format with 
+annotations hyperlinked to online biological databases. This guide will use an example 
+dataset to demonstrate how to perform analysis of experiments with commonly used designs 
+by using this package.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Data}
+We will use \verb"exprsExample", a simulated gene expression data, and 
+its corresponding phenotype data file, \verb"pDataExample" to illustrate
+some examples.  Usually the expression data is generated from the Affymetrix
+Expression Console and pheno data file is created by the user.
+<<>>=
+library(ArrayTools)
+data(exprsExample)
+head(exprsExample)
+dim(exprsExample)
+data(pDataExample)
+pDataExample
+@
+
+The expression data that created from Affymetrix Expression Console has
+an \verb"probeset_id" column.  To create an ExpressionSet, we need to use
+\verb"probeset_id" as the rownames of expression data.  Then we can create 
+an \verb"ExpressionSet" from the expression data and
+the phenotype data.
+
+<<>>=
+rownames(exprsExample) <- exprsExample$probeset_id
+eSet <- createExpressionSet (pData=pDataExample,  exprs = exprsExample, annotation = "hugene10st")
+dim(eSet)
+@
+
+The \verb"annotation" argument is important for the analysis for the Gene 1.0-ST arrays.  
+Since we only support two types of Gene 1.0-ST arrays, please use 
+either \verb"hugene10st" or \verb"mogene10st" as the value for the 
+\verb"annotation" argument.
+
+\section{Data Preprocessing}
+
+For Gene 1.0-ST arrays, data preprocessing include removing the \verb"control" genes 
+(default value is \verb"rmControl =TRUE") and takes the log2 of the expression value.  
+Before taking log2, we added 1 to the expression value (the default value is 
+\verb"offset = 1") because the expression value may have 0 value.  If you want to 
+output the preprocessed data to your local directory, you can use the \verb"output = TRUE"
+option.  Also, notice that the first argument is an \verb"ExpressionSet".  
+
+<<>>=
+normal <- preProcessGeneST (eSet, output=TRUE)
+normal
+dim(normal)
+@
+For 3' -arrays, data processing is done by using the \verb"preProcess3prime" function,
+which is a wrapper function to perform normalization for the array.  
+Instead of using the \verb"ExpressionSet" as its argument, the \verb"preProcess3prime"
+function requires an \verb"AffyBatch" object.  We can either choose \verb"rma"
+or \verb"gcrma" as the \verb"method\verb" argument.
+
+\section{Quality Assessment}
+To generate the Quality Assessment Report, we need to use the Affymetrix Expression 
+Console to generate a quality metric file. The sample quality metric file is 
+similar to the \verb"QC" file that can be obtained by using the \verb"data" function.  
+For Gene 1.0-ST arrays, we can use the \verb"qaGeneST" function to create an HTML report.  
+This report contains a series of plots, including Intensity Distribution , 
+Mean Signal, BAC Spike, polya Spike, Pos Vs Neg Auc, Mad Residual Signal, RLE MEAN, and 
+Hierarchical Clustering of Samples plots.  
+
+<<>>=
+data(QC)
+qaGeneST(normal, c("Treatment", "Group"), QC)
+@
+
+For 3' -arrays, the \verb"qa3prime" function is used to create a 
+QC report.  Instead of using \verb"ExpressionSet"
+as its argument, an \verb"AffyBatch" object is required.  Furthermore, 
+the QC file is not required for the 3' -Array.
+
+\section{Filtering}
+
+Before running analysis on the arrays, filtering out the uninformative genes may be 
+an important step for your analysis.  Three types of filtering methods are used in 
+the \verb"geneFilter"  function. Suppose that if we want to remove genes with 
+their inter-quartile range across the arrays with less than 10% and we 
+would also like to keep genes with at least 2 arrays with backgrounds greater than 
+4 at the same time, we can do the following:
+
+<<>>=
+filtered <- geneFilter(normal, numChip = 2, bg = 4, iqrPct=0.1,  output=TRUE)
+@
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Analysis}
+The analysis takes a series of steps that includes creating a design and a contrast matrix,
+running regression, selecting significant genes, and creating an HTML report.
+
+\subsection{Design Matrix}
+A design matrix determines what type of model you are running. The design matrix is 
+defined as a \verb"designMatrix" class which can be created by the \verb"new" function.  
+To create a model with only one factor, which is equivalent to a one-way ANOVA model, 
+we can do the following:
+
+<<>>=
+design1<- new("designMatrix", target=pData(filtered), covariates = "Treatment")
+design1
+@
+
+To create a model with two factors, we can do the following:
+
+<<>>=
+design2<- new("designMatrix", target=pData(filtered), covariates = c("Treatment", "Group"))
+design2
+@
+
+\subsection{Contrast Matrix}
+
+For the one-way ANOVA model based on the \verb"design1", if we want to compare 
+\verb"Treated" vs. \verb"Control", we can do the following:
+
+<<>>=
+contrast1 <- new("contrastMatrix", design.matrix = design1,  compare1 = "Treated", compare2 = "Control")
+contrast1
+@
+
+To perform the same comparison and to controll the \verb"Group" effect (Randomized 
+Block Design), we can write:
+
+<<>>=
+contrast2 <- new("contrastMatrix", design.matrix = design2, compare1 = "Treated", compare2 = "Control")
+contrast2
+@
+
+\subsection{Regression}
+
+To run the gene-wise regression, we can use the \verb"regress" function. This function 
+will create a \verb"regressResult" object.  
+
+<<>>=
+result1 <- regress(filtered, contrast1)
+result2 <- regress(filtered, contrast2)
+@
+
+\subsection{Select Significant Genes}
+
+We can select differentially expressed genes by using the \verb"selectSigGene" function.  
+To select differentially expressed genes based on p-values less than 0.05 and 
+fold change greater than log2 of 1.5, we can write the following codes:
+
+<<>>=
+sigResult1 <- selectSigGene(result1, p.value=0.05, fc.value=log2(1.5))
+sigResult2 <- selectSigGene(result2, p.value=0.05, fc.value=log2(1.5))
+@
+
+We can use the \verb"Sort" function to sort the \verb"regressResult" object by 
+p-value in ascending order (\verb"sorted.by = 'pValue'") or log2 Ratio in descending 
+order (\verb"sorted.by = 'log2Ratio'") or F statistics in descending order 
+(\verb"sorted.by = 'F'").  
+
+<<>>=
+Sort(sigResult1, sorted.by = 'pValue')
+Sort(sigResult2, sorted.by = 'F')
+@
+
+\subsection{Creating Reports}
+
+To output the differentially expressed genes along with annotations to an HTML
+file in your current working directory, we can use the \verb"Output2HTML" function.
+
+<<>>=
+Output2HTML(sigResult1)
+Output2HTML(sigResult2)
+@
+
+\section{Detecting Interaction}
+
+Interaction is a statistical term referring to a situation when the 
+relationship between the outcome and the variable of the main interest 
+differs at different levels of the extraneous variable.
+
+Just like before, we need to create the design and contrast matrices to 
+detect the interaction effect. 
+
+<<>>=
+designInt <- new("designMatrix", target=pData(filtered), covariates = c("Treatment", "Group"), intIndex=c(1,2))
+designInt
+contrastInt <- new("contrastMatrix", design.matrix = designInt, interaction = TRUE)
+contrastInt
+@
+
+To identify genes with an interaction effect, we can use the same \verb"regress" 
+and \verb"selectSigGene" functions:
+
+<<>>=
+resultInt <- regress(filtered, contrastInt)
+sigResultInt <-selectSigGene(resultInt, p.value=0.05, fc.value=log2(1.5))
+@
+
+For genes with the interaction effect, they should be analyzed separately 
+within each group.  For genes without any interaction gene, 
+they should be analyzed together.  This step can be achieved by using the 
+\verb"postInteraction" function.  The \verb"postInteraction" function returns an 
+object of \verb"interactionResult" class.  The components of the \verb"interactionResult"
+object consist of a list of \verb"regressResult" objects.  The first component is 
+a \verb"regressResult" object for all the genes.  The second component contains 
+the result for genes without interaction.  The third and the fourth components 
+(since \verb"Group" only contains two factors, \verb"A" and \verb"B") contain 
+results for genes with interaction only among groups \verb"A" and \verb"B", respectively.  
+Then we can use the \verb"selectSigGeneInt" function again to select differently 
+expressed genes within each component of the \verb"interactionResult" object.
+
+<<>>=
+intResult <- postInteraction(filtered, sigResultInt, mainVar ="Treatment",  compare1 = "Treated",  compare2 = "Control")
+sigResultInt <- selectSigGeneInt(intResult, pGroup = 0.05, pMain = 0.05)
+@
+
+We can use the \verb"Output2HTML" function again to output the 
+differentially expressed genes along with annotations to an HTML file in 
+your current working directory.
+
+<<>>=
+Output2HTML(sigResultInt)
+@
+
+\section{Creating Index File}
+We have created multiple outputs, including normalized data, filtered data, and 
+differently expressed genes for multiple models.  We can create an 
+index file that can link all of these results.
+
+<<>>=
+createIndex (sigResult1, sigResult2, intResult)
+@
+
+\end{document}
+

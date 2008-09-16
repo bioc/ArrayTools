@@ -1,0 +1,19 @@
+export(createExpressionSet, createIndex, 
+	   geneFilter, regress, postInteraction, createIngenuityFile,
+	   output.gct, output.cls, output.ing, createGSEAFiles,
+	   adjustment, getAdjP, getDesign, getAnnotation, getCompare1,
+	   getCompare2, getContrast, getCovariates, getF, getFC,
+	   getFCCutoff, getFilterMethod, getID, getIndex, getInteraction,
+	   getIntIndex, getLength, getLevel, getTarget, getNormalizationMethod,
+	   getP, getPCutoff, Output2HTML, qa3prime, qaGeneST, regressionMethod,
+	   selectSigGene, Sort, preProcessGeneST, preProcess3prime,
+	   selectSigGene, selectSigGeneInt)
+
+exportClasses(regressResult, interactionResult, designMatrix, contrastMatrix)
+
+exportMethods(adjustment, getAdjP, getAnnotation, getContrast, 
+    getF, getFC, getFCCutoff, getFilterMethod,
+	getID, getIndex, getNormalizationMethod, getP, 
+	getPCutoff, Output2HTML, regressionMethod, show, Sort, summary,
+	getLength, getCompare1, getCompare2, getContrast, getInteraction,
+	getLevel, initialize, getCovariates, getDesign, getIntIndex, getTarget)
