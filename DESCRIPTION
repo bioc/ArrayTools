@@ -1,11 +1,11 @@
 Package: ArrayTools
 Type: Package
 Title: geneChip Analysis Package
-Version: 1.3.0
+Version: 1.3.1
 Date: 2008-08-19
 Author: Xiwei Wu, Arthur Li
-Depends: R (>= 2.7.0), methods, affy, limma, xtable
-Suggests: simpleaffy, R2HTML, affyPLM, genefilter, annaffy, gcrma, hugene10st.db
+Depends: R (>= 2.7.0), affy, Biobase, graphics, grDevices, limma, methods, stats, utils, xtable
+Suggests: simpleaffy, R2HTML, affydata, affyPLM, genefilter, annaffy, gcrma, hugene10st.db
 Collate: Generic.R designMatrix-class.R contrastMatrix-class.R
     regressResult-class.R interactionResult-class.R
 	preProcess3prime.R preProcessGeneST.R createExpressionSet.R

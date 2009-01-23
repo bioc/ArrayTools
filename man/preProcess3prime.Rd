@@ -21,6 +21,8 @@ preProcess3prime(object, method = c("rma", "gcrma"), output = FALSE, mydir = get
 \author{Xiwei Wu, Arthur Li}
 \seealso{ ~~objects to See Also as \code{\link{help}}, ~~~ }
 \examples{
+if (require(affydata)) {
     data(Dilution)
     eset <- preProcess3prime(Dilution)
+}
 }
