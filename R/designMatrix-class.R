@@ -12,7 +12,7 @@ setMethod("show", signature("designMatrix"), function(object) {
     invisible(object)
 })
 setMethod("initialize", signature("designMatrix"), function(.Object, ...,
-    target, covariates, intIndex = 0) {
+    target=data.frame(default.a = c("a","b")), covariates=colnames(target), intIndex = 0) {
 
     if(!all(is.element(covariates, colnames(target))))
         stop ("The covariates are not matched with the names of the variables!")
