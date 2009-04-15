@@ -11,7 +11,7 @@ function(..., mydir=getwd(), index.file= "index.html",
     if (!all(sapply(result, getAnnotation) == arrayType))
         stop ("Array types have to be the same for each object!")
 
-    if (is.element(arrayType, c("hugene10st", "mogene10st"))) {  ## For genechip array only
+    if (is.element(arrayType, c("hugene10stprobeset", "mogene10stprobeset"))) {  ## For genechip array only
         offsetList <- sapply(lapply(result, getNormalizationMethod), function(x) x$offset)
         offset <- offsetList[1]
         rmControlList <- sapply(lapply(result, getNormalizationMethod), function(x) x$rmControl)
@@ -86,7 +86,7 @@ function(..., mydir=getwd(), index.file= "index.html",
         HTML("<hr /> <p align=left><font size='5', face='Arial'> Data Preprocessing", 
             file = index.file)
         HTML("<ul>", file=index.file)     
-        if (is.element(arrayType, c("hugene10st", "mogene10st"))){            
+        if (is.element(arrayType, c("hugene10stprobeset", "mogene10stprobeset"))){            
             HTML("<p align=left><li><font size='3', face='Arial'> All data processing was done 
                 using Bioconductor or APT tools", file = index.file)
             if (offset > 0){
@@ -125,7 +125,7 @@ function(..., mydir=getwd(), index.file= "index.html",
         HTML("<hr /> <p align=left><font size='5', face='Arial'> Quality Assessment", file = index.file)
         HTML("<ul>", file=index.file)
 
-        if (is.element(arrayType, c("hugene10st", "mogene10st"))){
+        if (is.element(arrayType, c("hugene10stprobeset", "mogene10stprobeset"))){
             HTML("<p align=left> <font size='3'> <a href=Quality_Control_Assessment\\QA.html> Quality Assessment 
                 Report </a> includes the following figures: Intensity Distribution, Mean Signal, BAC Spike, 
                 polya Spike, Pos Vs Neg Auc, Mad Residual Signal, RLE MEAN, and Hierarchical Clustering of Samples
