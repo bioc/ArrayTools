@@ -69,13 +69,13 @@ the phenotype data.
 
 <<>>=
 rownames(exprsExample) <- exprsExample$probeset_id
-eSet <- createExpressionSet (pData=pDataExample,  exprs = exprsExample, annotation = "hugene10stprobeset")
+eSet <- createExpressionSet (pData=pDataExample,  exprs = exprsExample, annotation = "hugene10sttranscriptcluster")
 dim(eSet)
 @
 
 The \verb"annotation" argument is important for the analysis for the Gene 1.0-ST arrays.  
 Since we only support two types of Gene 1.0-ST arrays, please use 
-either \verb"hugene10stprobeset" or \verb"mogene10stprobeset" as the value for the 
+either \verb"hugene10sttranscriptcluster" or \verb"mogene10sttranscriptcluster" as the value for the 
 \verb"annotation" argument.
 
 \section{Data Preprocessing}

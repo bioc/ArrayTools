@@ -29,5 +29,5 @@ createExpressionSet(pData, exprs, ...)
   data(pDataExample)
   data(exprsExample)
   eSet <- createExpressionSet (pDataExample, exprsExample, 
-      annotation = "hugene10st")
+      annotation = "hugene10sttranscriptcluster")
 }

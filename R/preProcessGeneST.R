@@ -1,15 +1,15 @@
 `preProcessGeneST` <-
 function(object, offset = 1, rmControl = TRUE, output = FALSE, mydir=getwd()){
     
-    if(!is.element(annotation(object), c("hugene10stprobeset", "mogene10stprobeset"))){
-        stop("We only support 'hugene10stprobeset' or 'mogene10stprobeset' for genechip array")
+    if(!is.element(annotation(object), c("hugene10sttranscriptcluster", "mogene10sttranscriptcluster"))){
+        stop("We only support 'hugene10sttranscriptcluster' or 'mogene10sttranscriptcluster' for genechip array")
     }   
 
     if (rmControl) {        
-        if (annotation(object) == "hugene10stprobeset"){
+        if (annotation(object) == "hugene10sttranscriptcluster"){
             data(hugene10stCONTROL)
             control <- hugene10stCONTROL
-        } else if (annotation(object) == "mogene10stprobeset"){
+        } else if (annotation(object) == "mogene10sttranscriptcluster"){
             data(mogene10stCONTROL)
             control <- mogene10stCONTROL
         }
