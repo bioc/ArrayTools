@@ -1,7 +1,7 @@
 Package: ArrayTools
 Type: Package
 Title: geneChip Analysis Package
-Version: 1.4.0
+Version: 1.5.0
 Date: 2009-04-14
 Author: Xiwei Wu, Arthur Li
 Depends: R (>= 2.7.0), affy, Biobase, graphics, grDevices, limma, methods, stats, utils, xtable
