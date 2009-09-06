@@ -1,7 +1,7 @@
 Package: ArrayTools
 Type: Package
 Title: geneChip Analysis Package
-Version: 1.5.1
+Version: 1.5.2
 Date: 2009-07-22
 Author: Xiwei Wu, Arthur Li
 Depends: R (>= 2.7.0), affy (>= 1.23.4), Biobase (>= 2.5.5), graphics, grDevices, limma, methods, stats, utils, xtable
@@ -23,6 +23,6 @@ Description: This package is designed to provide solutions
     annotations hyperlinked to online biological databases. 
 biocViews: Microarray, OneChannel, QualityControl, Preprocessing,
   Statistics, DifferentialExpression, Annotation, ReportWriting, Visualization
-License: LGPL(>= 2.0)
+License: LGPL (>= 2.0)
 LazyLoad: yes
 Packaged: Sun Jan 25 05:36:48 2009; biocbuild
