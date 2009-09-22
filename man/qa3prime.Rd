@@ -70,7 +70,7 @@ to a median chip. A discordant distribution infers a problem with the chip.
 \value{
   no value is returned
 }
-\references{\code{\url{http://www.affymetrix.com}}}
+\references{ \url{http://www.affymetrix.com} }
 \author{Xiwei Wu, Arthur Li}
 \examples{
   \dontrun{qa3prime(AffyBatchExample, c("var1", "var2"))}

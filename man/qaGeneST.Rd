@@ -61,7 +61,9 @@ clinical samples.
 \value{
   no value is returned
 }
-\references{\code{\url{http://www.affymetrix.com/support/technical/whitepapers/exon_gene_arrays_qa_whitepaper.pdf}}}
+\references{
+  \url{http://www.affymetrix.com/support/technical/whitepapers/exon_gene_arrays_qa_whitepaper.pdf}}
+
 \author{Xiwei Wu, Arthur Li}
 \examples{
 data(eSetExample)

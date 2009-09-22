@@ -12,13 +12,14 @@ createExpressionSet(pData, exprs, ...)
 \arguments{
   \item{pData}{a data frame contains the phenotype data}
   \item{exprs}{a data frame contains the expression data}
-  \item{\dots}{addtional arguments passed to \code{new("ExpressionSet", exprs, phenoData, ...)} if needed }
+  \item{\dots}{addtional arguments passed to \code{new("ExpressionSet",
+      exprs, phenoData, ...)} if needed } 
 }
 \value{
   an \code{ExpressionSet}
 }
 \author{Xiwei Wu, Arthur Li }
-\seealso{\link[Biobase]{ExpressionSet}}
+\seealso{\link[Biobase:class.ExpressionSet]{ExpressionSet}}
 \references{
   Bioconductor: Open software development for computational biology and
   bioinformatics R. Gentleman, V. J. Carey, D. M. Bates, B.Bolstad, M.
