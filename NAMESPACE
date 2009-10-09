@@ -1,3 +1,19 @@
+import(methods)
+importMethodsFrom(affy, barplot, boxplot, cdfName, image, Mbox)
+importFrom(affy, AffyRNAdeg, cleancdfname, plotAffyRNAdeg, rma)
+importMethodsFrom(Biobase, annotation, experimentData,
+                  "experimentData<-", exprs, "exprs<-", pData,
+                  "sampleNames<-")
+importFrom(Biobase, package.version)
+importFrom(graphics, axis, legend, par, plot, text)
+importFrom(grDevices, dev.off, png, rainbow)
+importFrom(limma, classifyTestsF, contrasts.fit, eBayes, lmFit)
+importFrom(stats, as.dist, as.formula, cor, hclust, IQR, model.matrix,
+           p.adjust, pf, quantile)
+importFrom(utils, data, write.csv, write.table)
+importFrom(xtable, xtable)
+
+
 export(createExpressionSet, createIndex, 
 	   geneFilter, regress, postInteraction, createIngenuityFile,
 	   output.gct, output.cls, output.ing, createGSEAFiles,

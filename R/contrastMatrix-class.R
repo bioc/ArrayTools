@@ -18,7 +18,7 @@ setMethod("show", signature("contrastMatrix"), function(object) {
 
 
 setMethod("initialize", signature("contrastMatrix"), function(.Object, ..., 
-    design.matrix, compare1 = NA, compare2 = NA, level = NA, 
+    design.matrix = new("designMatrix"), compare1 = NA, compare2 = NA, level = NA, 
     interaction = FALSE) {
     
     param <- colnames(getDesign(design.matrix))

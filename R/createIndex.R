@@ -1,12 +1,10 @@
 
 `createIndex` <- 
 function(..., mydir=getwd(), index.file= "index.html", 
-    createHeader = NULL){    
+    createHeader = NULL){
 
-    result <- list(...)  
-   
-    ##browser()
-    library(xtable)
+    result <- list(...)
+
     arrayType <- getAnnotation(result[[1]])
     if (!all(sapply(result, getAnnotation) == arrayType))
         stop ("Array types have to be the same for each object!")
