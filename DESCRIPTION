@@ -26,4 +26,3 @@ biocViews: Microarray, OneChannel, QualityControl, Preprocessing,
   Statistics, DifferentialExpression, Annotation, ReportWriting, Visualization
 License: LGPL (>= 2.0)
 LazyLoad: yes
-Packaged: Sun Jan 25 05:36:48 2009; biocbuild
