@@ -41,7 +41,7 @@ function (object, parameters, outputFile = "QA.html", mydir=getwd())
     setwd(QA.dir)
     
     emptyPlot <-function(figureName){
-        png(file = figureName)
+        png(filename = figureName)
         plot(1, 1, col = "white", yaxt = "n", xaxt = "n", xlab = "", ylab = "", bty = "n")
         text(1, 1, label = "Your Chip is not supported by simplyaffy", col = "red")
         dev.off()
@@ -147,7 +147,7 @@ function (object, parameters, outputFile = "QA.html", mydir=getwd())
 
         ## Figure2
         HTML("<hr><a name= \"fig2\"></a>", file = outputFile)
-        png(file = figure2)
+        png(filename = figure2)
         ##layout(matrix(c(1, 2), nr = 1, ncol = 2), TRUE)
         ##margin=c(10, 4, 3, 1)
         par(mfrow = c(1, 2), las = 2, mar = c(8, 2, 2, 1))
@@ -209,8 +209,8 @@ function (object, parameters, outputFile = "QA.html", mydir=getwd())
         }
     }
 
-    png(file = figure6)
-    plotAffyRNAdeg(deg, col = rainbow(nchip))
+    png(filename = figure6)
+    plotAffyRNAdeg(deg, cols = rainbow(nchip))
     legend("topleft", col = rainbow(nchip), lty = 1, cex = 0.7, legend = targetTag)
     dev.off()
     HTML("<hr><a name= \"fig6\"></a>", file = outputFile)
@@ -236,7 +236,7 @@ function (object, parameters, outputFile = "QA.html", mydir=getwd())
         }
     }  
     figure8 <- "Figure8.png"
-    png(file = figure8)
+    png(filename = figure8)
     sampleNames(object) <- targetTag 
     data_PLM <- fitPLM(object, output.param = list(varcov = "none"))
     par(mar = c(1, 1, 2, 1), mfrow = c(row, col))
@@ -247,7 +247,7 @@ function (object, parameters, outputFile = "QA.html", mydir=getwd())
         GraphBorder = 1, Align = "center", append = TRUE, WidthHTML=540, HeightHTML=540)
 
     figure9 <- "Figure9.png"
-    png(file = figure9)
+    png(filename = figure9)
     par(mfrow = c(1, 2), las = 2, mar = c(6, 2, 2, 1))
     boxplot(data_PLM, main = "NUSE Plot", cex.axis = 0.7, names = targetTag, col = rainbow(nchip))
     Mbox(data_PLM, main = "RLE Plot", names = targetTag, cex.axis = 0.7, col = rainbow(nchip))

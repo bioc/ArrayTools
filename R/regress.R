@@ -41,7 +41,7 @@ function (object, contrast, method = c("limma", "regression", "permutation"),
     }
     names(FC) <- Log2Ratio.name
     
-    result <- new("regressResult", ID = as.vector(unlist(fit2$genes)), 
+    result <- new("regressResult", ID = as.vector(unlist(rownames(fit2))), 
         foldChange = FC, FValue = fit2$F, pValue = fit2$F.p.value, 
         adjPVal = adj.P.Value, contrast =contrast,
         regressionMethod = method, adjustment = adj, annotation=object@annotation,
