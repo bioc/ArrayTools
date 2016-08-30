@@ -16,6 +16,7 @@ function(object, offset = 1, rmControl = TRUE, output = FALSE, mydir=getwd()){
         exprs <- exprs(object)
         rmIndex <- is.element(rownames(exprs), control$probeset_id)
         exprs <- exprs[!rmIndex,]
+        object <- object[!rmIndex,]
         logExprs <- log2(exprs + offset)
     } else {
         logExprs <- log2(exprs(object) + offset)
