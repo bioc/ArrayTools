@@ -1,7 +1,7 @@
 Package: ArrayTools
 Type: Package
 Title: geneChip Analysis Package
-Version: 1.51.0
+Version: 1.51.1
 Date: 2009-07-22
 Author: Xiwei Wu, Arthur Li
 Depends: R (>= 2.7.0), affy (>= 1.23.4), Biobase (>= 2.5.5), methods
@@ -15,7 +15,7 @@ Collate: Generic.R designMatrix-class.R contrastMatrix-class.R
         regress.R selectSigGene.R postInteraction.R selectSigGeneInt.R
         createGSEAFiles.R createIndex.R createIngenuityFile.R
         geneFilter.R intensityPlot.R output.cls.R output.gct.R
-        output.ing.R plotCluster.R qa3prime.R qaGeneST.R
+        output.ing.R plotCluster.R qa3prime.R qaGeneST.R zzz.R
 Maintainer: Arthur Li <xueli@coh.org>
 Description: This package is designed to provide solutions for quality
         assessment and to detect differentially expressed genes for the
@@ -31,3 +31,4 @@ LazyLoad: yes
 biocViews: Microarray, OneChannel, QualityControl, Preprocessing,
         StatisticalMethod, DifferentialExpression, Annotation,
         ReportWriting, Visualization
+PackageStatus: Deprecated
